@@ -15,25 +15,6 @@ Our journal paper is available on [IEEE TIM](https://ieeexplore.ieee.org/documen
 }
 ```
 
-<!-- [![](figure/cover.jpg)](https://ieeexplore.ieee.org/document/9779777) -->
-
-<!-- ![](figure/cover.png) -->
-
-## Introduction
-In this paper, we propose a fast, accurate, and targetless extrinsic calibration method for multiple LiDARs and cameras based on adaptive voxelization. On the theory level, we incorporate the LiDAR extrinsic calibration with the bundle adjustment method. We derive the second-order derivatives of the cost function w.r.t. the extrinsic parameter to accelerate the optimization. On the implementation level, we apply the adaptive voxelization to dynamically segment the LiDAR point cloud into voxels with non-identical sizes, and reduce the computation time in the process of feature correspondence matching.
-
-![](figure/dense_map.jpg)
-Fig. 1 Dense colorized point cloud reconstructed with LiDAR poses and extrinsic calibrated with our proposed method.
-
-## Adaptive Voxelization
-In both LiDAR-LiDAR and LiDAR-camera extrinsic calibration, we implement adaptive voxelization to accelerate the feature correspondence matching process. The point cloud map is dynamically segmented into voxels with non-identical sizes, such that only one plane feature is contained in each voxel. This process sufficiently saves the execution time of k-d tree searching from our previous [work1](https://ieeexplore.ieee.org/document/9361153) (see Fig. 2) and [work2](https://ieeexplore.ieee.org/document/9495137?source=authoralert) (see Fig. 3).
-
-![](figure/lidar_voxel.png)
-Fig. 2 Adaptive voxelization in LiDAR-LiDAR extrinsic calibration.
-
-![](figure/camera_voxel.png)
-Fig. 3 Adaptive voxelization in LiDAR-camera extrinsic calibration. A) real world image. B) raw point cloud of this scene. C) voxelization of [previous work](https://ieeexplore.ieee.org/document/9495137?source=authoralert) where the yellow circles indicate the false edge estimation. D) edges extracted with our proposed method.
-
 ## 1. Prerequisites
 Our code has been tested on `Ubuntu 16.04` with `ROS Kinetic`, `Ubuntu 18.04` with `ROS Melodic` and `Ubuntu 20.04` with `ROS Noetic`, [Ceres Solver 1.14.x](https://github.com/ceres-solver/ceres-solver), [OpenCV 3.4.14](https://github.com/opencv/opencv), [Eigen 3.3.7](https://gitlab.com/libeigen/eigen), [PCL 1.8](https://github.com/PointCloudLibrary/pcl).
 
@@ -75,9 +56,6 @@ We have added code for single LiDAR-camera extrinsic calibration using adaptive 
 ```
 roslaunch mlcc calib_single_camera.launch
 ```
-
-![](figure/fisheye_cloud.jpg)
-Fig. 4 Extrinsic calibration of fisheye camera and LiDAR in a single scene using adaptive voxelization. Left: distorted image. Right: colorized point cloud.
 
 ## 4. Run Your Own Data
 To test on your own data, you need to save the LiDAR point cloud in `.pcd` format. Please only collect the point cloud and images when the LiDAR (sensor platform) is not moving for the optimal precision (or segment them from a complete rosbag). The base LiDAR poses and initial extrinsic values shall also be provided (in `tx ty tz qw qx qy qz` format). These initial values could be obtained by general SLAM and hand-eye calibration algorithms.

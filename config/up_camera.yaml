@@ -1,0 +1,25 @@
+%YAML:1.0
+CameraMat: !!opencv-matrix
+  rows: 3
+  cols: 3
+  dt: d
+  data: [1956.857060757215, 0, 1302.015335250317,
+         0, 1957.796265508393, 953.8898210643381,
+         0, 0, 1] # 20230218
+DistCoeffs: !!opencv-matrix
+  rows: 5
+  cols: 1
+  dt: d
+  data: [0.07695868358439563, -0.07967290541376582, -0.000454253854234239, 0.0007089164256386013, -0.09117860620576414]
+
+Camera.width: 2592
+Camera.height: 1944
+
+ExtrinsicMat: !!opencv-matrix
+  rows: 4
+  cols: 4
+  dt: d
+  data: [0, -1, 0, 0,
+         0, 0, -1, 0,
+         1, 0, 0, 0,
+         0, 0, 0, 1]

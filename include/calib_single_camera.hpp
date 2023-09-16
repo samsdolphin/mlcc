@@ -34,7 +34,7 @@
 #include "BA/ba.hpp"
 #include "BA/tools.hpp"
 
-#define FISHEYE
+// #define FISHEYE
 
 class Camera
 {
@@ -113,18 +113,18 @@ public:
       for(auto iter = surf_map.begin(); iter != surf_map.end(); ++iter)
         iter->second->recut();
 
-      // pcl::PointCloud<pcl::PointXYZINormal> color_cloud;
-      // visualization_msgs::MarkerArray marker_array;
+      pcl::PointCloud<pcl::PointXYZINormal> color_cloud;
+      visualization_msgs::MarkerArray marker_array;
 
-      // for(auto iter = surf_map.begin(); iter != surf_map.end(); ++iter)
-      //   iter->second->tras_display(color_cloud, marker_array);
+      for(auto iter = surf_map.begin(); iter != surf_map.end(); ++iter)
+        iter->second->tras_display(color_cloud, marker_array);
 
-      // sensor_msgs::PointCloud2 dbg_msg;
-      // pcl::toROSMsg(color_cloud, dbg_msg);
-      // dbg_msg.header.frame_id = "camera_init";
-      // pub_residual.publish(dbg_msg);
+      sensor_msgs::PointCloud2 dbg_msg;
+      pcl::toROSMsg(color_cloud, dbg_msg);
+      dbg_msg.header.frame_id = "camera_init";
+      pub_residual.publish(dbg_msg);
 
-      // pub_direct.publish(marker_array);
+      pub_direct.publish(marker_array);
 
       estimate_edge(surf_map);
     }
@@ -236,8 +236,9 @@ public:
   {
     lidar_cloud_ = pcl::PointCloud<pcl::PointXYZI>::Ptr(new pcl::PointCloud<pcl::PointXYZI>);
     pcl::io::loadPCDFile(data_path_ + std::to_string(lidar_number_) + ".pcd", *lidar_cloud_);
+    // downsample_voxel(*lidar_cloud_, down_sample_size_);
     ROS_INFO_STREAM("Sucessfully load Point Cloud");
-    camera_.rgb_img_ = cv::imread(data_path_ + std::to_string(image_number_) + ".png", cv::IMREAD_COLOR);
+    camera_.rgb_img_ = cv::imread(data_path_ + std::to_string(image_number_) + ".jpg", cv::IMREAD_COLOR);
     ROS_INFO_STREAM("Sucessfully load Image");
   }
 
